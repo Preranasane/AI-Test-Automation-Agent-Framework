@@ -1,0 +1,466 @@
+Since this is a **complete, reusable README document**, here's a professional GitHub-ready version you can use as your `README.md`.
+
+# 🤖 AI Test Automation Agent Framework
+
+An AI-powered UI Test Automation Framework built using **LangGraph**, **LangChain**, **Playwright**, and **Ollama**. This framework enables a Large Language Model (LLM) to understand natural language instructions, invoke browser automation tools, execute end-to-end UI actions, capture screenshots, generate execution reports, and provide failure analysis for debugging.
+
+---
+
+# 🎯 Project Objective
+
+Traditional automation frameworks require manually written test scripts.
+
+This framework introduces an AI Agent capable of:
+
+* Understanding test steps written in natural language.
+* Deciding which automation tool to invoke.
+* Executing browser actions autonomously.
+* Capturing execution evidence.
+* Generating HTML reports.
+* Assisting in failure analysis.
+
+The goal is to reduce scripting effort while making UI automation more intelligent, maintainable, and scalable.
+
+---
+
+# 🚀 Technology Stack
+
+| Component            | Technology                |
+| -------------------- | ------------------------- |
+| Programming Language | Python 3.x                |
+| AI Framework         | LangGraph                 |
+| LLM Integration      | LangChain                 |
+| Browser Automation   | Playwright                |
+| LLM                  | Ollama (Qwen Model)       |
+| Reporting            | Custom HTML Report        |
+| Screenshots          | Playwright Screenshot API |
+| Async Programming    | asyncio                   |
+
+---
+
+# 🧠 LLM Model
+
+Current Model:
+
+```
+qwen2.5:0.5b
+```
+
+Recommended Models:
+
+* qwen3:4b
+* qwen2.5:3b
+* llama3.1:8b
+
+Larger models generally provide more reliable multi-step reasoning and tool-calling.
+
+---
+
+# 🏗 Framework Architecture
+
+```
+                   User Prompt
+                        │
+                        ▼
+               LangGraph AI Agent
+                        │
+                LangChain Tool Calling
+                        │
+      ┌─────────────────┼────────────────┐
+      │                 │                │
+      ▼                 ▼                ▼
+ Browser Manager     Playwright      Report Manager
+      │                 │                │
+      ▼                 ▼                ▼
+ Browser Actions   Screenshots      HTML Report
+                        │
+                        ▼
+               Failure Analysis Agent
+```
+
+---
+
+# 📁 Project Structure
+
+```
+AI_Agent/
+│
+├── app.py
+├── workflow.py
+├── browser_manager.py
+├── tools.py
+├── report_manager.py
+├── report_generator.py
+├── report_utils.py
+│
+├── reports/
+│      ├── report.html
+│      └── screenshots/
+│
+├── requirements.txt
+│
+└── README.md
+```
+
+---
+
+# ⚙ Virtual Environment Setup
+
+Create virtual environment
+
+```
+python -m venv .venv
+```
+
+Activate (Windows)
+
+```
+.venv\Scripts\activate
+```
+
+Deactivate
+
+```
+deactivate
+```
+
+Upgrade pip
+
+```
+python -m pip install --upgrade pip
+```
+
+---
+
+# 📦 Required Packages
+
+Install required libraries
+
+```
+pip install langchain
+pip install langgraph
+pip install langchain-core
+pip install langchain-community
+pip install langchain-ollama
+pip install playwright
+pip install typing_extensions
+```
+
+Install Playwright browser
+
+```
+playwright install
+```
+
+(Optional)
+
+```
+pip freeze > requirements.txt
+```
+
+Install from requirements
+
+```
+pip install -r requirements.txt
+```
+
+---
+
+# 🦙 Ollama Setup
+
+Install Ollama.
+
+Start Ollama server.
+
+Pull model
+
+```
+ollama pull qwen2.5:0.5b
+```
+
+or
+
+```
+ollama pull qwen3:4b
+```
+
+Verify
+
+```
+ollama list
+```
+
+---
+
+# 🤖 Agent Workflow
+
+```
+User Prompt
+      │
+      ▼
+LLM understands instruction
+      │
+      ▼
+Chooses appropriate Tool
+      │
+      ▼
+Playwright executes action
+      │
+      ▼
+Capture Screenshot
+      │
+      ▼
+Log execution
+      │
+      ▼
+Generate HTML Report
+```
+
+---
+
+# 🔧 Browser Automation Tools
+
+Current tools include:
+
+* Open URL
+* Click Element
+* Fill Text
+* Take Screenshot
+* Browser Navigation
+* Window Management
+* Dropdown Selection (planned)
+* Checkbox Handling (planned)
+* Frame Switching (planned)
+* Popup Handling (planned)
+* DOM Access (planned)
+* Web Element Discovery (planned)
+
+Adding a new tool only requires creating a new LangChain `@tool` function and registering it with the agent.
+
+---
+
+# 📸 Screenshot Capture
+
+The framework captures browser screenshots during execution.
+
+Screenshots are stored under:
+
+```
+reports/screenshots/
+```
+
+These screenshots are linked in the generated HTML report for easy debugging.
+
+---
+
+# 📊 HTML Reporting
+
+After execution, the framework generates an HTML report containing:
+
+* Execution Time
+* Tool Name
+* Action Performed
+* Status
+* Details
+* Screenshot Reference
+
+Report location:
+
+```
+reports/report.html
+```
+
+---
+
+# ❌ Failure Analysis Agent
+
+A dedicated failure analysis capability helps investigate execution failures by:
+
+* Reviewing execution logs.
+* Inspecting browser actions.
+* Identifying failed tool calls.
+* Capturing failure screenshots.
+* Summarizing probable root causes.
+
+This enables quicker debugging compared to manually inspecting automation logs.
+
+---
+
+# ▶ Running the Framework
+
+```
+python app.py
+```
+
+Execution flow
+
+```
+Start Browser
+
+↓
+
+Initialize AI Agent
+
+↓
+
+Receive User Prompt
+
+↓
+
+LLM selects tools
+
+↓
+
+Playwright executes actions
+
+↓
+
+Capture screenshots
+
+↓
+
+Generate HTML Report
+
+↓
+
+Close Browser
+```
+
+---
+
+# 💬 Example Prompt
+
+```
+Open https://practicetestautomation.com/practice-test-login/
+
+Enter username as student
+
+Enter password as Password123
+
+Click Login
+
+Capture screenshots after each step.
+```
+
+---
+
+# 🧩 Core Components
+
+### Browser Manager
+
+Responsible for:
+
+* Starting browser
+* Managing browser context
+* Creating pages
+* Closing browser
+
+---
+
+### Workflow
+
+Responsible for:
+
+* Initializing LangGraph Agent
+* Registering tools
+* Connecting LLM
+* Executing prompts
+
+---
+
+### Tools
+
+Responsible for browser operations including:
+
+* Click
+* Fill
+* Navigation
+* Screenshot
+* Browser controls
+
+---
+
+### Report Manager
+
+Responsible for:
+
+* Logging execution
+* Maintaining step history
+* Recording screenshots
+* Recording execution status
+
+---
+
+### Report Generator
+
+Responsible for creating the HTML execution report after test completion.
+
+---
+
+# 🔄 Extending the Framework
+
+New automation capabilities can be added easily by creating additional LangChain tools such as:
+
+* Hover
+* Drag and Drop
+* Double Click
+* Keyboard Actions
+* Mouse Actions
+* JavaScript Execution
+* File Upload
+* Download Verification
+* API Validation
+* Visual Testing
+
+---
+
+
+# ⚠ Troubleshooting
+
+### Playwright not installed
+
+```
+playwright install
+```
+
+---
+
+### Browser does not launch
+
+Check:
+
+* Playwright installation
+* Browser binaries
+* Headless configuration
+
+---
+
+### Ollama model unavailable
+
+Verify
+
+```
+ollama list
+```
+
+Pull the required model
+
+```
+ollama pull qwen2.5:0.5b
+```
+
+---
+
+### Virtual environment not activated
+
+Windows
+
+```
+.venv\Scripts\activate
+```
+
+---
+Evidences:
+![alt text](20260723_111056_323450.png)
+![alt text](image.png)
+
